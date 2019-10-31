@@ -25,7 +25,7 @@ class StudentController {
   }
 
   async update(req, res) {
-    const student = await Student.findByPk(req.userId)
+    const student = await Student.findByPk(req.params.id)
 
     if (req.body.email !== student.email) {
       const studentExists = await Student.findOne({
@@ -49,6 +49,18 @@ class StudentController {
       weight,
       height,
     })
+  }
+
+  async delete(req, res) {
+    const student = await Student.findByPk(req.params.id)
+
+    if (!student) {
+      return res.status(400).json({ error: 'User does not exists' })
+    }
+
+    await student.destroy()
+
+    return res.json({ success: 'User was deleted successfully' })
   }
 }
 

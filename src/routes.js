@@ -14,6 +14,7 @@ routes.get('/students', StudentController.index)
 routes.use(authMiddleware)
 
 routes.post('/students', StudentController.store)
-routes.put('/students', StudentController.update)
+routes.put('/students/:id', StudentController.update)
+routes.delete('/students/:id', StudentController.delete)
 
 export default routes

@@ -24,6 +24,7 @@ module.exports = {
     'no-console': 'off',
     'comma-dangle': 'off',
     'arrow-parens': 'off',
-    'arrow-body-style': 'off'
+    'arrow-body-style': 'off',
+    'object-curly-newline': ["error", { "multiline": true }],
   },
 };

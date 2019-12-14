@@ -25,6 +25,6 @@ module.exports = {
     'comma-dangle': 'off',
     'arrow-parens': 'off',
     'arrow-body-style': 'off',
-    'object-curly-newline': ["error", { "multiline": true }],
+    // 'object-curly-newline': ["error", { "multiline": true }],
   },
 };

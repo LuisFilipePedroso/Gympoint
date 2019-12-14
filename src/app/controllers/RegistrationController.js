@@ -1,4 +1,6 @@
-import { addMonths, parseISO } from 'date-fns'
+import * as Yup from 'yup'
+
+import { addMonths } from 'date-fns'
 import StringMask from 'string-mask'
 
 import Registration from '../models/Registration'
@@ -10,7 +12,15 @@ import Queue from '../../lib/Queue'
 
 class RegistrationController {
   async store(req, res) {
-    // Validate with Yup here
+    const schema = Yup.object().shape({
+      plan_id: Yup.number().required(),
+      student_id: Yup.number().required(),
+      startDate: Yup.date().required(),
+    })
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' })
+    }
 
     const plan = await Plan.findByPk(req.body.planId)
 
@@ -35,10 +45,10 @@ class RegistrationController {
       end_date: endDate,
       price,
     })
-    
+
     const formatter = new StringMask('###.##,##')
 
-    const job = {
+    const data = {
       email: student.email,
       name: student.name,
       plan: plan.title,
@@ -47,7 +57,7 @@ class RegistrationController {
       endDate,
     }
 
-    await Queue.add(RegistrationMail.key, job)
+    await Queue.add(RegistrationMail.key, data)
 
     return res.json(registration)
   }

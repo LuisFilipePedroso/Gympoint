@@ -80,7 +80,7 @@ class StudentController {
 
     await student.destroy()
 
-    return res.json({ success: 'User was deleted successfully' })
+    return res.json({ response: 'User was deleted successfully' })
   }
 }
 

@@ -10,10 +10,10 @@ class Student extends Model {
         weight: Sequelize.FLOAT,
         height: Sequelize.FLOAT,
       },
-      {
-        sequelize,
-      }
+      { sequelize }
     )
+
+    return this
   }
 }
 
